@@ -16,9 +16,7 @@
         <a href="index">HTTP request</a>
     </nav>
     <h1>Selection d'un réalisateur</h1>
-    <select name="choixReal" id="ChoixDeReal" multiple="multiple" onchange="AfficheFilm();">
-        
-    </select>
+    <select name="choixReal" id="ChoixDeReal" multiple="multiple" onchange="AfficheFilm();"></select>
     <h2>Liste des films des réalisateurs sélectionnés :</h2>
     <div id="FilmList" style="color:white; border:solid 5px white; background-color:black; margin-left:25%; width:50%;">
 
@@ -48,7 +46,7 @@
 
                         selectReal.appendChild(optionReal);
                     }
-                    
+
                 }
             }
         }
@@ -61,7 +59,7 @@
 
         xhttp2.onreadystatechange = function () {
             if (xhttp2.readyState == 4 && xhttp2.status == 200) {
-                
+
                 var xmlDoc = this.responseXML;
                 var FilmList = xmlDoc.getElementsByTagName("film");
 
@@ -88,5 +86,10 @@
         }
     </script>
 
+    <!--footer-->
+    <footer>
+        <!--paragraphe de footer-->
+        <p>Anthony LAMOUR étudiant en Master 2 à Ludus Académie</p>
+    </footer>
 </body>
 </html>
