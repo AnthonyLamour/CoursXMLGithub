@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Test http request</title>
+    <!--lien vers le CSS de la page-->
+    <link rel="stylesheet" href="StylePersonaXML.css" />
+    <!--icone de la page-->
+    <link rel="icon" href="Image/icon.gif">
+</head>
+<body>
+    <div id="MonTest" style="color:white">
+        <TEXTAREA id="areafilms" rows="20" cols="50"></TEXTAREA>
+        <div id="titleList">
+
+        </div>
+    </div>
+    <div id="test">
+
+    </div>
+
+    <input type="button" id="btnCreerTableauFilm" value="créer un tableau de films" onclick="CreerTableauFilm()" />
+
+    <script>
+        var xhttp = new XMLHttpRequest;
+
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                console.log(this.responseText);
+                document.getElementById("areafilms").innerHTML = this.responseText;
+                var xmlDoc = this.responseXML;
+                var FilmList = xmlDoc.getElementsByTagName("film");
+                var tableau = document.createElement("div");
+                var col1 = document.createElement("div");
+                var col2 = document.createElement("div");
+                var col3 = document.createElement("div");
+                var titleLine;
+
+                col1.setAttribute("class", "divtab");
+                col2.setAttribute("class", "divtab");
+                col3.setAttribute("class", "divtab");
+
+                var ligneCol1 = document.createElement('p');
+                ligneCol1.setAttribute("class", "case");
+                var ligneCol2 = document.createElement('p');
+                ligneCol2.setAttribute("class", "case");
+                var ligneCol3 = document.createElement('p');
+                ligneCol3.setAttribute("class", "case");
+
+                ligneCol1.innerHTML = "Film";
+                ligneCol2.innerHTML = "Réal";
+                ligneCol3.innerHTML = "Date";
+
+                col1.appendChild(ligneCol1);
+                col2.appendChild(ligneCol2);
+                col3.appendChild(ligneCol3);
+
+                for (var i = 0; i < FilmList.length; i++) {
+                    ligneCol1 = document.createElement('p');
+                    ligneCol1.setAttribute("class", "case");
+                    ligneCol2 = document.createElement('p');
+                    ligneCol2.setAttribute("class", "case");
+                    ligneCol3 = document.createElement('p');
+                    ligneCol3.setAttribute("class", "case");
+                    ligneCol1.innerHTML = FilmList[i].childNodes[1].textContent;
+                    ligneCol2.innerHTML = FilmList[i].childNodes[3].textContent;
+                    ligneCol3.innerHTML = FilmList[i].childNodes[5].textContent;
+                    col1.appendChild(ligneCol1);
+                    col2.appendChild(ligneCol2);
+                    col3.appendChild(ligneCol3);
+                    titleLine = document.createElement('p');
+                    titleLine.innerHTML = FilmList[i].childNodes[1].textContent;
+                    document.getElementById("titleList").appendChild(titleLine);
+                }
+
+                tableau.appendChild(col1);
+                tableau.appendChild(col2);
+                tableau.appendChild(col3);
+
+                document.getElementById("test").appendChild(tableau);
+            }
+        }
+
+        function CreerTableauFilm() {
+            xhttp.open("GET", "MesFilms.xml", true);
+            xhttp.send();
+        }
+        
+    </script>
+
+</body>
+</html>

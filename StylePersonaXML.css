@@ -1,0 +1,25 @@
+﻿.divtab{
+    display:inline-block;
+}
+
+.case{
+    border:solid 1px black;
+    background-color:white;
+    text-align:center;
+    width:25vw;
+    margin-top:0;
+    margin-bottom:0;
+}
+
+/*modification du CSS des objets body*/
+body {
+    /*mise en place d'un background issu d'une image*/
+    background: url(Image/BackgroundQuizz.jpg) fixed no-repeat center;
+    /*modification de la taille du background pour remplir l'écran*/
+    background-size: 100% 100%;
+    text-align: center;
+}
+
+.setToWhite{
+    color:white;
+}
