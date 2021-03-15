@@ -50,4 +50,9 @@
     <realisateur>16</realisateur>
     <date>1961</date>
   </film>
+  <film idreal="16" testAttribute="Attribut du film 11">
+    <titre>Le retour de la BDD </titre>
+    <realisateur>16</realisateur>
+    <date>1990</date>
+  </film>
 </lesfilms>

@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Selection de réalisateur</title>
+    <!--lien vers le CSS de la page-->
+    <link rel="stylesheet" href="StylePersonaXML.css" />
+    <!--icone de la page-->
+    <link rel="icon" href="Image/icon.gif">
+</head>
+
+<body onload="loadSelect();">
+    <nav>
+        <a href="index">HTTP request</a>
+    </nav>
+    <h1>Selection d'un réalisateur</h1>
+    <select name="choixReal" id="ChoixDeReal" multiple="multiple" onchange="AfficheFilm();">
+        
+    </select>
+    <h2>Liste des films des réalisateurs sélectionnés :</h2>
+    <div id="FilmList" style="color:white; border:solid 5px white; background-color:black; margin-left:25%; width:50%;">
+
+    </div>
+
+    <script>
+        var selectReal = document.getElementById("ChoixDeReal");
+        var xhttp = new XMLHttpRequest;
+        var realIdList = new Array;
+        var filmList = document.getElementById("FilmList");
+        var selectedOption = new Array;
+        var titleLine;
+
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                var xmlDoc = this.responseXML;
+                var FilmList = xmlDoc.getElementsByTagName("film");
+                var optionReal;
+
+                for (var i = 0; i < FilmList.length; i++) {
+                    if (realIdList.indexOf(FilmList[i].getAttribute("idreal")) == -1) {
+                        realIdList.push(FilmList[i].getAttribute("idreal"));
+
+                        optionReal = document.createElement("option");
+                        optionReal.setAttribute("value", FilmList[i].getAttribute("idreal"));
+                        optionReal.innerHTML = "Réalisateur n°" + FilmList[i].getAttribute("idreal");
+
+                        selectReal.appendChild(optionReal);
+                    }
+                    
+                }
+            }
+        }
+        function loadSelect() {
+            xhttp.open("GET", "MesFilms.xml", true);
+            xhttp.send();
+        }
+
+        var xhttp2 = new XMLHttpRequest;
+
+        xhttp2.onreadystatechange = function () {
+            if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+                
+                var xmlDoc = this.responseXML;
+                var FilmList = xmlDoc.getElementsByTagName("film");
+
+                for (var i = 0; i < FilmList.length; i++) {
+                    if (selectedOption.indexOf(FilmList[i].getAttribute("idreal"))!=-1) {
+                        titleLine = document.createElement("p");
+                        filmList.innerHTML = filmList.innerHTML + FilmList[i].childNodes[1].textContent + "<br/>";
+                    }
+
+                }
+            }
+        }
+
+        function AfficheFilm() {
+            filmList.innerHTML = "";
+            selectedOption = new Array;
+            for (var i = 0; i<selectReal.length; i++) {
+                if (selectReal[i].selected) {
+                    selectedOption.push(selectReal[i].value);
+                }
+            }
+            xhttp2.open("GET", "MesFilms.xml", true);
+            xhttp2.send();
+        }
+    </script>
+
+</body>
+</html>
