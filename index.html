@@ -10,19 +10,25 @@
     <link rel="icon" href="Image/icon.gif">
 </head>
 <body>
+    <h1>Test de http request</h1>
     <div id="MonTest" style="color:white">
+        <h2>Contenu du fichier XML avec balises</h2>
         <TEXTAREA id="areafilms" rows="20" cols="50"></TEXTAREA>
+        <h2>Récupération des titres de films</h2>
         <div id="titleList">
 
         </div>
-        <p>récupérationd des attributes</p>
+        <h2>Récupération des attributes</h2>
         <textarea id="recupAttribut" rows="20" cols="50"></textarea>
+        <h2>Récupération d'un deuxième attribut différent</h2>
+        <textarea id="recupAttribut2" rows="20" cols="50"></textarea>
     </div>
+    <h2>Tableau de films</h2>
     <div id="test">
 
     </div>
 
-    <input type="button" id="btnCreerTableauFilm" value="créer un tableau de films" onclick="CreerTableauFilm()" />
+    <input type="button" id="btnCreerTableauFilm" value="Remplire la page" onclick="CreerTableauFilm()" />
 
     <script>
         var xhttp = new XMLHttpRequest;
@@ -75,6 +81,7 @@
                     titleLine.innerHTML = FilmList[i].childNodes[1].textContent;
                     document.getElementById("titleList").appendChild(titleLine);
                     document.getElementById("recupAttribut").innerHTML = document.getElementById("recupAttribut").innerHTML + FilmList[i].getAttribute("idreal") + "\n";
+                    document.getElementById("recupAttribut2").innerHTML = document.getElementById("recupAttribut2").innerHTML + FilmList[i].getAttribute("testAttribute") + "\n";
                 }
 
                 tableau.appendChild(col1);
@@ -89,8 +96,16 @@
             xhttp.open("GET", "MesFilms.xml", true);
             xhttp.send();
         }
-        
+
     </script>
 
+    <!--footer-->
+    <footer>
+        <!--paragraphe de footer-->
+        <p>Anthony LAMOUR étudiant en Master 2 à Ludus Académie</p>
+    </footer>
+
 </body>
+
+
 </html>

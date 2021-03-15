@@ -23,3 +23,21 @@ body {
 .setToWhite{
     color:white;
 }
+
+h1,h2{
+    text-decoration:underline;
+    color:white;
+}
+
+/*modification du CSS des objets footer*/
+footer {
+    /*position absolue*/
+    position: fixed;
+    /*position en bas de l'écran*/
+    bottom: 0;
+    right: 0;
+    /*set de la couleur du texte en blanc*/
+    color: white;
+    /*alignement du text à droite*/
+    text-align: right;
+}
