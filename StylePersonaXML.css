@@ -91,3 +91,12 @@ nav{
     /*padding de 15 pixels*/
     padding:15px;
 }
+
+#JackFrost2 {
+    /*position fixe*/
+    position: fixed;
+    /*en haut a gauche*/
+    bottom: 5vh;
+    right: 0;
+    max-width:15%;
+}
