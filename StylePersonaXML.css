@@ -54,9 +54,9 @@ h1,h2,h3{
 
 /*modification du CSS des objets footer*/
 footer {
-    /*position absolue*/
+    /*position fixe*/
     position:fixed;
-    /*position en bas de l'écran*/
+    /*position en bas à droite de l'écran*/
     right: 0;
     bottom:0;
     /*set de la couleur du texte en blanc*/
@@ -92,16 +92,21 @@ nav{
     padding:15px;
 }
 
+/*modification du CSS des objets d'id JackFrost2*/
 #JackFrost2 {
     /*position fixe*/
     position: fixed;
-    /*en haut a gauche*/
+    /*en bas au dessus du footer*/
     bottom: 5vh;
+    /*a droite*/
     right: 0;
+    /*taille max de 15% de l'épaisseur de la page*/
     max-width:15%;
 }
 
+/*modification du CSS des objets d'id DivTitre*/
 #DivTitre{
+    /*marges*/
     margin-top:5px;
     margin-bottom:2vh;
 }

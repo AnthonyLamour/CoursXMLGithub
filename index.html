@@ -26,10 +26,13 @@
         <a href="SelectionReal">Selection réalisateur</a>
     </nav>
 
+    <!--div de titre-->
     <div id="DivTitre">
+        <!--image de décoration-->
         <img src="Image/JackFrost.png" class="JackFrost" style="display: inline;">
         <!--titre principal de la page-->
         <h1 id="MainTitle" style="display:inline">Test de requète HTTP</h1>
+        <!--image de décoration-->
         <img src="Image/JackFrost.png" class="JackFrost">
     </div>
 
@@ -75,16 +78,16 @@
     <!--script js-->
     <script>
 
+        //permet de changer la taille des images de déco du titre
         function setJackSize() {
-            console.log("ok");
+            //récupération des images
             var mesJacks = document.getElementsByClassName("JackFrost");
-            console.log(mesJacks);
+            //récupération de la hauteur du titre
             var monTitreHeight = document.getElementById("MainTitle").offsetHeight;
-            console.log(monTitreHeight);
+            //pour chaque image
             for (var i = 0; i < mesJacks.length; i++) {
-                console.log(mesJacks[i]);
+                //modification de la hauteur maximale des images
                 mesJacks[i].style.maxHeight = monTitreHeight + "px";
-                console.log(mesJacks[i].style.maxHeight);
             }
         }
 
