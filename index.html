@@ -15,7 +15,7 @@
 </head>
 
 <!--contenu de la page-->
-<body>
+<body onload="setJackSize();">
     <!--image de décoration-->
     <img src="Image/jackfrost2.png" id="JackFrost2">
     <!--menu de navigation entre les pages-->
@@ -26,8 +26,12 @@
         <a href="SelectionReal">Selection réalisateur</a>
     </nav>
 
-    <!--titre principal de la page-->
-    <h1>Test de http request</h1>
+    <div id="DivTitre">
+        <img src="Image/jackfrost.png" class="JackFrost" style="display: inline;">
+        <!--titre principal de la page-->
+        <h1 id="MainTitle" style="display:inline">Test de requète HTTP</h1>
+        <img src="Image/jackfrost.png" class="JackFrost">
+    </div>
 
     <!--div contenant différent test de HTTPRequest-->
     <div id="MonTest" style="color:white">
@@ -70,6 +74,20 @@
 
     <!--script js-->
     <script>
+
+        function setJackSize() {
+            console.log("ok");
+            var mesJacks = document.getElementsByClassName("JackFrost");
+            console.log(mesJacks);
+            var monTitreHeight = document.getElementById("MainTitle").offsetHeight;
+            console.log(monTitreHeight);
+            for (var i = 0; i < mesJacks.length; i++) {
+                console.log(mesJacks[i]);
+                mesJacks[i].style.maxHeight = monTitreHeight + "px";
+                console.log(mesJacks[i].style.maxHeight);
+            }
+        }
+
         //variable de type XMLHttpRequest
         var xhttp = new XMLHttpRequest;
 

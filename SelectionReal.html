@@ -15,7 +15,7 @@
 </head>
 
 <!--contenu de la page-->
-<body onload="loadSelect();">
+<body onload="loadSelect(); setJackSize();">
     <!--image de décoration-->
     <img src="Image/jackfrost2.png" id="JackFrost2">
     <!--menu de navigation entre les pages-->
@@ -25,8 +25,14 @@
         <!--lien vers la page d'index-->
         <a href="index">HTTP request</a>
     </nav>
-    <!--titre principal de la page-->
-    <h1>Selection d'un réalisateur</h1>
+
+    <div id="DivTitre">
+        <img src="Image/jackfrost.png" class="JackFrost" style="display: inline;">
+        <!--titre principal de la page-->
+        <h1 id="MainTitle" style="display:inline">Selection d'un réalisateur</h1>
+        <img src="Image/jackfrost.png" class="JackFrost">
+    </div>
+
     <!--select permettant de choisir un réalisateur-->
     <select name="choixReal" id="ChoixDeReal" multiple="multiple" onchange="AfficheFilm();"></select>
     <!--sous-titre-->
@@ -38,6 +44,20 @@
 
     <!--script js-->
     <script>
+
+        function setJackSize() {
+            console.log("ok");
+            var mesJacks = document.getElementsByClassName("JackFrost");
+            console.log(mesJacks);
+            var monTitreHeight = document.getElementById("MainTitle").offsetHeight;
+            console.log(monTitreHeight);
+            for (var i = 0; i < mesJacks.length; i++) {
+                console.log(mesJacks[i]);
+                mesJacks[i].style.maxHeight = monTitreHeight+"px";
+                console.log(mesJacks[i].style.maxHeight);
+            }
+        }
+
         //création d'une variable permettant de manipuler le select du réal
         var selectReal = document.getElementById("ChoixDeReal");
         //création d'une requète XMLHttpRequest
