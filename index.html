@@ -70,7 +70,7 @@
         //variable de type XMLHttpRequest
         var xhttp = new XMLHttpRequest;
 
-        //création de sa fonciton onreadystatechange
+        //création de sa fonction onreadystatechange
         xhttp.onreadystatechange = function () {
             //si charger correctement
             if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -223,8 +223,10 @@
         function CreerTableauFilm() {
             //ouverture du fichier XML
             xhttp.open("GET", "MesFilms.xml", true);
+            //envoi de la requète
             xhttp.send();
 
+            //tests sur les splits de chaine
             var chaineToSplit = "text###autre text###encore du text";
             console.log(chaineToSplit);
             var chaineSplit = chaineToSplit.split("###");

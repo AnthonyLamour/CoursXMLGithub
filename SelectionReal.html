@@ -22,57 +22,86 @@
         <!--lien vers la page d'index-->
         <a href="index">HTTP request</a>
     </nav>
+    <!--titre principal de la page-->
     <h1>Selection d'un réalisateur</h1>
+    <!--select permettant de choisir un réalisateur-->
     <select name="choixReal" id="ChoixDeReal" multiple="multiple" onchange="AfficheFilm();"></select>
+    <!--sous-titre-->
     <h2>Liste des films des réalisateurs sélectionnés :</h2>
+    <!--div contenant la liste des films de ce réalisateur-->
     <div id="FilmList" style="color:white; border:solid 5px white; background-color:black; margin-left:25%; width:50%;">
 
     </div>
 
+    <!--script js-->
     <script>
+        //création d'une variable permettant de manipuler le select du réal
         var selectReal = document.getElementById("ChoixDeReal");
+        //création d'une requète XMLHttpRequest
         var xhttp = new XMLHttpRequest;
+        //création d'une liste des id de réalisateur déjà mentionné
         var realIdList = new Array;
+        //création de la liste des films du XML
         var filmList = document.getElementById("FilmList");
+        //création d'une liste des options sélectionner par l'utilisateur
         var selectedOption = new Array;
-        var titleLine;
 
+        //création de la fonction onreadystatechange de la requète
         xhttp.onreadystatechange = function () {
+            //si charger correctement
             if (xhttp.readyState == 4 && xhttp.status == 200) {
+                //récupération du document XML
                 var xmlDoc = this.responseXML;
+                //création de la liste des films
                 var FilmList = xmlDoc.getElementsByTagName("film");
+                //création d'une option de sélection
                 var optionReal;
 
+                //pour chaque film
                 for (var i = 0; i < FilmList.length; i++) {
+                    //si le réal n'est pas déjà dans la liste
                     if (realIdList.indexOf(FilmList[i].getAttribute("idreal")) == -1) {
+                        //ajout du réal dans la liste
                         realIdList.push(FilmList[i].getAttribute("idreal"));
 
+                        //création d'une option pour ce réal
                         optionReal = document.createElement("option");
                         optionReal.setAttribute("value", FilmList[i].getAttribute("idreal"));
                         optionReal.innerHTML = "Réalisateur n°" + FilmList[i].getAttribute("idreal");
 
+                        //ajout de cette option au select
                         selectReal.appendChild(optionReal);
                     }
 
                 }
             }
         }
+
+        //fonction permettant de remplir le select
         function loadSelect() {
+            //ouverture du fichier XML
             xhttp.open("GET", "MesFilms.xml", true);
+            //envoi de la requète
             xhttp.send();
         }
 
+        //création d'une requète XMLHttpRequest
         var xhttp2 = new XMLHttpRequest;
 
+        //création de sa fonction onreadystatechange
         xhttp2.onreadystatechange = function () {
+            //si charger correctement
             if (xhttp2.readyState == 4 && xhttp2.status == 200) {
-
+                //récupération du document XML
                 var xmlDoc = this.responseXML;
+                //création de la liste des films
                 var FilmList = xmlDoc.getElementsByTagName("film");
 
+                //pour chaque film
                 for (var i = 0; i < FilmList.length; i++) {
-                    if (selectedOption.indexOf(FilmList[i].getAttribute("idreal"))!=-1) {
-                        titleLine = document.createElement("p");
+                    //si le réal a été sélectionné par l'utilisateur
+                    if (selectedOption.indexOf(FilmList[i].getAttribute("idreal")) != -1) {
+                        //ajout du titre du film dans la page
                         filmList.innerHTML = filmList.innerHTML + FilmList[i].childNodes[1].textContent + "<br/>";
                     }
 
@@ -80,15 +109,23 @@
             }
         }
 
+        //fonction permettant d'afficher les films des réal sélectionnés
         function AfficheFilm() {
+            //reset de la liste de film
             filmList.innerHTML = "";
+            //reset du tableau des réal sélectionnés
             selectedOption = new Array;
-            for (var i = 0; i<selectReal.length; i++) {
+            //pour chaque réal
+            for (var i = 0; i < selectReal.length; i++) {
+                //si il est sélectionné
                 if (selectReal[i].selected) {
+                    //ajout du réal dans le tableau de réal sélectionné
                     selectedOption.push(selectReal[i].value);
                 }
             }
+            //ouverture du fichier XML
             xhttp2.open("GET", "MesFilms.xml", true);
+            //envoi de la requète
             xhttp2.send();
         }
     </script>
