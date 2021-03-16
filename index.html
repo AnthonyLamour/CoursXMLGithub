@@ -1,57 +1,100 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<!--head de la page-->
 <head>
+    <!--encodage de la page-->
     <meta charset="utf-8" />
+    <!--titre de la page-->
     <title>Test http request</title>
     <!--lien vers le CSS de la page-->
     <link rel="stylesheet" href="StylePersonaXML.css" />
     <!--icone de la page-->
     <link rel="icon" href="Image/icon.gif">
 </head>
+
+<!--contenu de la page-->
 <body>
+
+    <!--menu de navigation entre les pages-->
     <nav>
+        <!--lien vers la page de sélection de réalisateur-->
         <a href="SelectionReal">Selection réalisateur</a>
     </nav>
+
+    <!--titre principal de la page-->
     <h1>Test de http request</h1>
+
+    <!--div contenant différent test de HTTPRequest-->
     <div id="MonTest" style="color:white">
+        <!--sous-titre-->
         <h2>Contenu du fichier XML avec balises</h2>
+        <!--textarea contenant le fichier xml avec les balises-->
         <TEXTAREA id="areafilms" rows="20" cols="50"></TEXTAREA>
+        <!--sous-titre-->
         <h2>Récupération des titres de films</h2>
-        <div id="titleList">
+        <!--div contenant les titres des films uniquement-->
+        <div id="titleList" style="border:solid 2px white; background-color:black; width:50%; margin-left:25%;">
 
         </div>
+        <!--sous-titre-->
         <h2>Récupération des attributes</h2>
+        <!--textarea contenant les attributs idreal de chaque film-->
         <textarea id="recupAttribut" rows="20" cols="50"></textarea>
+        <!--sous-titre-->
         <h2>Récupération d'un deuxième attribut différent</h2>
+        <!--textarea contenant les attributs testAttribute de chaque film-->
         <textarea id="recupAttribut2" rows="20" cols="50"></textarea>
     </div>
+
+    <!--sous-titre-->
     <h2>Tableau de films</h2>
+    <!--div contenant un tableau avec les informations des films-->
     <div id="test">
 
     </div>
 
+    <!--sous-titre-->
+    <h2>Tableau de films à partir de responseText</h2>
+    <!--div contenant un tableau avec les informations des films récupérer sur responseText-->
+    <div id="testResponseText">
+
+    </div>
+
+    <!--bouton permettant de remplir la page-->
     <input type="button" id="btnCreerTableauFilm" value="Remplire la page" onclick="CreerTableauFilm()" />
 
+    <!--script js-->
     <script>
+        //variable de type XMLHttpRequest
         var xhttp = new XMLHttpRequest;
 
+        //création de sa fonciton onreadystatechange
         xhttp.onreadystatechange = function () {
+            //si charger correctement
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-                console.log(this.responseText);
+                //affichage du contenu de la réponse sous forme de text dans un textarea
                 document.getElementById("areafilms").innerHTML = this.responseText;
+                //récupération du contenu de la réponse en format XML
                 var xmlDoc = this.responseXML;
+                //récupération de la liste des films
                 var FilmList = xmlDoc.getElementsByTagName("film");
+                //création d'un div servant de tableau
                 var tableau = document.createElement("div");
+                //création de divs servant de colonne pour le tableau
                 var col1 = document.createElement("div");
                 var col2 = document.createElement("div");
                 var col3 = document.createElement("div");
+                //création d'une variable permettant d'incrémenter la liste des titres de films
                 var titleLine;
 
+                //ajout de l'attribut class pour les colonnes du tableau
                 col1.setAttribute("class", "divtab");
                 col2.setAttribute("class", "divtab");
                 col3.setAttribute("class", "divtab");
 
+                //création des variables qui serviront de lignes du tableau
                 var ligneCol1 = document.createElement('p');
                 ligneCol1.setAttribute("class", "case");
                 var ligneCol2 = document.createElement('p');
@@ -59,45 +102,133 @@
                 var ligneCol3 = document.createElement('p');
                 ligneCol3.setAttribute("class", "case");
 
+                //initialisation des premières lignes du tableau
                 ligneCol1.innerHTML = "Film";
                 ligneCol2.innerHTML = "Réal";
                 ligneCol3.innerHTML = "Date";
 
+                //ajout des premières lignes dans les colonnes du tableau
                 col1.appendChild(ligneCol1);
                 col2.appendChild(ligneCol2);
                 col3.appendChild(ligneCol3);
 
+                //pour chaque film
                 for (var i = 0; i < FilmList.length; i++) {
+                    //création des lignes du tableau
                     ligneCol1 = document.createElement('p');
                     ligneCol1.setAttribute("class", "case");
                     ligneCol2 = document.createElement('p');
                     ligneCol2.setAttribute("class", "case");
                     ligneCol3 = document.createElement('p');
                     ligneCol3.setAttribute("class", "case");
+                    //ajout du texte des lignes
                     ligneCol1.innerHTML = FilmList[i].childNodes[1].textContent;
                     ligneCol2.innerHTML = FilmList[i].childNodes[3].textContent;
                     ligneCol3.innerHTML = FilmList[i].childNodes[5].textContent;
+                    //ajout des lignes dans les colonnes
                     col1.appendChild(ligneCol1);
                     col2.appendChild(ligneCol2);
                     col3.appendChild(ligneCol3);
+                    //création du prochain titre de la liste
                     titleLine = document.createElement('p');
                     titleLine.innerHTML = FilmList[i].childNodes[1].textContent;
+                    //ajout tu titre dans la liste
                     document.getElementById("titleList").appendChild(titleLine);
+                    //ajout du idreal dans la liste
                     document.getElementById("recupAttribut").innerHTML = document.getElementById("recupAttribut").innerHTML + FilmList[i].getAttribute("idreal") + "\n";
+                    //ajout du testAttribute dans la liste
                     document.getElementById("recupAttribut2").innerHTML = document.getElementById("recupAttribut2").innerHTML + FilmList[i].getAttribute("testAttribute") + "\n";
                 }
 
+                //mise à jour du tableau
                 tableau.appendChild(col1);
                 tableau.appendChild(col2);
                 tableau.appendChild(col3);
 
+                //ajout du tableau dans la page
                 document.getElementById("test").appendChild(tableau);
+
+                //variable contenant la réponse au format text
+                var varXMLText = this.responseText;
+
+                var ListeDeFilm = varXMLText.split("<film");
+
+                var tmpText;
+
+                //création de divs servant de colonne pour le tableau
+                col1 = document.createElement("div");
+                col2 = document.createElement("div");
+                col3 = document.createElement("div");
+
+                //ajout de l'attribut class pour les colonnes du tableau
+                col1.setAttribute("class", "divtab");
+                col2.setAttribute("class", "divtab");
+                col3.setAttribute("class", "divtab");
+
+                //création des variables qui serviront de lignes du tableau
+                ligneCol1 = document.createElement('p');
+                ligneCol1.setAttribute("class", "case");
+                ligneCol2 = document.createElement('p');
+                ligneCol2.setAttribute("class", "case");
+                ligneCol3 = document.createElement('p');
+                ligneCol3.setAttribute("class", "case");
+
+                //initialisation des premières lignes du tableau
+                ligneCol1.innerHTML = "Film";
+                ligneCol2.innerHTML = "Réal";
+                ligneCol3.innerHTML = "Date";
+
+                //ajout des premières lignes dans les colonnes du tableau
+                col1.appendChild(ligneCol1);
+                col2.appendChild(ligneCol2);
+                col3.appendChild(ligneCol3);
+
+                for (var j = 1; j < ListeDeFilm.length; j++) {
+                    //création des lignes du tableau
+                    ligneCol1 = document.createElement('p');
+                    ligneCol1.setAttribute("class", "case");
+                    ligneCol2 = document.createElement('p');
+                    ligneCol2.setAttribute("class", "case");
+                    ligneCol3 = document.createElement('p');
+                    ligneCol3.setAttribute("class", "case");
+                    //récupération du titre du film
+                    tmpText = ListeDeFilm[j].split("<titre>");
+                    tmpText = tmpText[1].split("<\/titre>");
+                    //ajout du titre du film à la ligne
+                    ligneCol1.innerHTML = tmpText[0];
+                    //récupération du réal
+                    tmpText = ListeDeFilm[j].split("<realisateur>");
+                    tmpText = tmpText[1].split("<\/realisateur>");
+                    //ajout du réal à la ligne
+                    ligneCol2.innerHTML = tmpText[0];
+                    //récupération de la date
+                    tmpText = ListeDeFilm[j].split("<date>");
+                    tmpText = tmpText[1].split("<\/date>");
+                    //ajout de la date à la ligne
+                    ligneCol3.innerHTML = tmpText[0];
+                    //ajout des premières lignes dans les colonnes du tableau
+                    col1.appendChild(ligneCol1);
+                    col2.appendChild(ligneCol2);
+                    col3.appendChild(ligneCol3);
+                }
+                //ajout des colonnes au tableau
+                document.getElementById("testResponseText").appendChild(col1);
+                document.getElementById("testResponseText").appendChild(col2);
+                document.getElementById("testResponseText").appendChild(col3);
             }
+
         }
 
+        //fonction permettant dans remplir la page
         function CreerTableauFilm() {
+            //ouverture du fichier XML
             xhttp.open("GET", "MesFilms.xml", true);
             xhttp.send();
+
+            var chaineToSplit = "text###autre text###encore du text";
+            console.log(chaineToSplit);
+            var chaineSplit = chaineToSplit.split("###");
+            console.log(chaineSplit);
         }
 
     </script>

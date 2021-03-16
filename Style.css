@@ -1,0 +1,131 @@
+﻿/*modification du CSS des objets de class TextInput*/
+.TextInput{
+
+    /*display en mode block*/
+    display:block;
+    /*marge haute et basse à 1% de la hauteur de l'écran*/
+    margin-top:1vh;
+    margin-bottom:1vh;
+
+}
+
+/*modification du CSS des objets h1*/
+h1{
+
+    /*soulignage du titre*/
+    text-decoration:underline;
+    /*alignement du titre au centre*/
+    text-align:center;
+    /*set de la couleur du texte en blanc*/
+    color:white;
+
+}
+
+/*modification du CSS des objets fieldset*/
+fieldset {
+
+    /*marge gauche de 25% de l'épaisseur de l'écran*/
+    margin-left: 25%;
+    /*épaisseur de 50% l'épaisseur de l'écran*/
+    width: 50%;
+
+}
+
+/*modification du CSS des objets legend*/
+legend {
+
+    /*set de la couleur du texte en blanc*/
+    color: white;
+
+}
+
+/*modification du CSS des objets label*/
+label {
+
+    /*set de la couleur du texte en blanc*/
+    color: white;
+
+}
+
+/*modification du CSS des objets d'id DivBord*/
+#DivBord{
+
+    /*bordure solid de 5 pixels blanche*/
+    border:solid 5px white;
+
+}
+
+/*modification du CSS des objets body*/
+body{
+
+    /*mise en place d'un background issu d'une image*/
+    background: url(Image/Background.jpg) fixed no-repeat center;
+    /*modification de la taille du background pour remplir l'écran*/
+    background-size:100% 100%;
+
+}
+
+/*modification du CSS des objets footer*/
+footer {
+
+    /*position absolue*/
+    position: fixed;
+    /*position en bas de l'écran*/
+    bottom: 0;
+    right:0;
+    /*set de la couleur du texte en blanc*/
+    color: white;
+    /*alignement du text à droite*/
+    text-align:right;
+
+}
+
+/*modification du CSS des objets de class Test*/
+.Test {
+
+    /*set de la couleur du texte en rouge*/
+    color: red;
+
+}
+
+/*modification du CSS des objets d'id container*/
+#container {
+
+    /*modification de la taille de l'objet*/
+    width:400px;
+    height: 400px;
+    /*position relative*/
+    position: relative;
+    /*background jaune*/
+    background: yellow;
+
+}
+
+/*modification du CSS des objets d'id animate*/
+#animate {
+
+    /*modification de la taille de l'objet*/
+    width: 50px;
+    height: 50px;
+    /*position absolue*/
+    position: absolute;
+    /*background rouge*/
+    background: red;
+
+}
+
+/*modification du CSS des objets h3*/
+h3 {
+
+    /*set de la couleur du texte en blanc*/
+    color: white;
+
+}
+
+/*modification du CSS des objets paragraphe*/
+p {
+
+    /*set de la couleur du texte en blanc*/
+    color: white;
+
+}
