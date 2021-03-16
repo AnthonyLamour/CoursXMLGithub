@@ -99,60 +99,99 @@
             col2.appendChild(ligneCol2);
             col3.appendChild(ligneCol3);
 
+            //création d'un tableau contenant la liste des titres
             var titleList = new Array;
+            //création d'un tableau contenant la liste des réal
             var realList = new Array;
+            //création d'un tableau contenant la liste des date
             var dateList = new Array;
 
+            //création d'un path pour vers les titres de films
             var path = "lesfilms/film/titre";
 
+            //si le xml existe et est correct
             if (xml.evaluate) {
+                //récupération des nodes via le path et le fichier xml
                 var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                //récupération de la première itération
                 var result = nodes.iterateNext();
+                //tant qu'il y a un résultat
                 while (result) {
+                    //ajout du titre à la liste de titre
                     titleList.push(result.childNodes[0].nodeValue);
+                    //passage à la prochaine itération
                     result = nodes.iterateNext();
                 }
             }
+            //si IE
             else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                //définition de la propriété SelectionLanguage
                 xml.setProperty("SelectionLanguage", "XPath");
+                //récupération des nodes via le path et le fichier xml
                 nodes = xml.selectNodes(path);
+                //pour chaque résultat
                 for (var i = 0; i < nodes.length; i++) {
+                    //ajout du titre à la liste de titre
                     titleList.push(nodes[i].childNodes[0].nodeValue);
                 }
             }
 
+            //création d'un path pour vers les réalisateurs de films
             path = "lesfilms/film/realisateur";
 
+            //si le xml existe et est correct
             if (xml.evaluate) {
+                //récupération des nodes via le path et le fichier xml
                 var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                //récupération de la première itération
                 var result = nodes.iterateNext();
+                //tant qu'il y a un résultat
                 while (result) {
+                    //ajout du réalisateur à la liste de réalisateur
                     realList.push(result.childNodes[0].nodeValue);
+                    //passage à la prochaine itération
                     result = nodes.iterateNext();
                 }
             }
+            //si IE
             else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                //définition de la propriété SelectionLanguage
                 xml.setProperty("SelectionLanguage", "XPath");
+                //récupération des nodes via le path et le fichier xml
                 nodes = xml.selectNodes(path);
+                //pour chaque résultat
                 for (var i = 0; i < nodes.length; i++) {
+                    //ajout du réalisateur à la liste de réalisateur
                     realList.push(nodes[i].childNodes[0].nodeValue);
                 }
             }
 
+            //création d'un path pour vers les dates de films
             path = "lesfilms/film/date";
 
+            //si le xml existe et est correct
             if (xml.evaluate) {
+                //récupération des nodes via le path et le fichier xml
                 var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                //récupération de la première itération
                 var result = nodes.iterateNext();
+                //tant qu'il y a un résultat
                 while (result) {
+                    //ajout de la date à la liste de dates
                     dateList.push(result.childNodes[0].nodeValue);
+                    //passage à la prochaine itération
                     result = nodes.iterateNext();
                 }
             }
+            //si IE
             else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                //définition de la propriété SelectionLanguage
                 xml.setProperty("SelectionLanguage", "XPath");
+                //récupération des nodes via le path et le fichier xml
                 nodes = xml.selectNodes(path);
+                //pour chaque résultat
                 for (var i = 0; i < nodes.length; i++) {
+                    //ajout de la date à la liste de dates
                     dateList.push(nodes[i].childNodes[0].nodeValue);
                 }
             }
@@ -182,74 +221,124 @@
             //ajout du tableau dans la page
             document.getElementById("test").appendChild(tableau);
 
+            //création d'un path cherchant les titre de film sortie après 1900
             path = "lesfilms/film[date>1900]/titre";
-            var tmpString="";
+            //création de la chaine récupérant la liste de ces films
+            var tmpString = "";
 
+            //si le xml existe et est correct
             if (xml.evaluate) {
+                //récupération des nodes via le path et le fichier xml
                 var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                //récupération de la première itération
                 var result = nodes.iterateNext();
+                //tant qu'il y a un résultat
                 while (result) {
-                    tmpString+=result.childNodes[0].nodeValue+"\n";
+                    //ajout du titre à la chaine
+                    tmpString += result.childNodes[0].nodeValue + "\n";
+                    //passage à la prochaine itération
                     result = nodes.iterateNext();
                 }
             }
+            //si IE
             else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                //définition de la propriété SelectionLanguage
                 xml.setProperty("SelectionLanguage", "XPath");
+                //récupération des nodes via le path et le fichier xml
                 nodes = xml.selectNodes(path);
+                //pour chaque résultat
                 for (var i = 0; i < nodes.length; i++) {
+                    //ajout du titre à la chaine
                     tmpString += result.childNodes[0].nodeValue+"<br/>";
                 }
             }
+            //affichage du résultat
             console.log(tmpString);
 
+            //création d'un path pour vers les titres de films
             path = "lesfilms/film/titre";
+            //reset de la chaine
             tmpString="";
 
+            //si le xml existe et est correct
             if (xml.evaluate) {
+                //récupération des nodes via le path et le fichier xml
                 var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                //récupération de la première itération
                 var result = nodes.iterateNext();
+                //récupération de la valeur du premier titre
                 tmpString += result.childNodes[0].nodeValue;
             }
+            //si IE
             else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                //définition de la propriété SelectionLanguage
                 xml.setProperty("SelectionLanguage", "XPath");
+                //récupération des nodes via le path et le fichier xml
                 nodes = xml.selectNodes(path);
+                //récupération de la valeur du premier titre
                 tmpString += result.childNodes[0].nodeValue;
             }
+            //affichage du résultat
             console.log(tmpString);
 
+            //création d'un path pour vers la racine du document
             path = "lesfilms";
+            //reset de la chaine
             tmpString = "";
 
+            //si le xml existe et est correct
             if (xml.evaluate) {
+                //récupération des nodes via le path et le fichier xml
                 var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                //récupération de la première itération
                 var result = nodes.iterateNext();
+                //récupération de la valeur du dernier titre
                 tmpString += result.lastElementChild.childNodes[1].textContent;
             }
+            //si IE
             else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                //définition de la propriété SelectionLanguage
                 xml.setProperty("SelectionLanguage", "XPath");
+                //récupération des nodes via le path et le fichier xml
                 nodes = xml.selectNodes(path);
+                //récupération de la valeur du dernier titre
                 tmpString += result.lastElementChild.childNodes[1].textContent;
             }
+            //affichage du résultat
             console.log(tmpString);
 
+            //création d'un path cherchant les titre de film sortie après 1950
             path = "lesfilms/film[date>1950]/titre";
+            //reset de la chaine
             tmpString = "";
 
+            //si le xml existe et est correct
             if (xml.evaluate) {
+                //récupération des nodes via le path et le fichier xml
                 var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                //récupération de la première itération
                 var result = nodes.iterateNext();
+                //tant qu'il y a un résultat
                 while (result) {
+                    //ajout du titre à la chaine
                     tmpString += result.childNodes[0].nodeValue+"\n";
+                    //passage à la prochaine itération
                     result = nodes.iterateNext();
                 }
             }
+            //si IE
             else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                //définition de la propriété SelectionLanguage
                 xml.setProperty("SelectionLanguage", "XPath");
+                //récupération des nodes via le path et le fichier xml
                 nodes = xml.selectNodes(path);
+                //pour chaque résultat
                 for (var i = 0; i < nodes.length; i++) {
+                    //ajout du titre à la chaine
                     tmpString += result.childNodes[0].nodeValue+"<br/>";
                 }
             }
+            //affichage du résultat
             console.log(tmpString);
         }
         
