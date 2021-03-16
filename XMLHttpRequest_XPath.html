@@ -40,6 +40,34 @@
 
     </div>
 
+    <!--div contenant différent test de HTTPRequest-->
+    <div id="MonTest" style="color:white">
+        <!--sous-titre-->
+        <h2>Récupération des titres de films sortie après 1900</h2>
+        <!--div contenant les titres des films sortie après 1900-->
+        <div id="titleList1900" style="border:solid 2px white; background-color:black; width:50%; margin-left:25%;">
+
+        </div>
+        <!--sous-titre-->
+        <h2>Récupération du titre du premier film de la liste</h2>
+        <!--div contenant le permier film de la liste-->
+        <div id="firstFilm" style="border:solid 2px white; background-color:black; width:50%; margin-left:25%;">
+
+        </div>
+        <!--sous-titre-->
+        <h2>Récupération du titre du dernier film de la liste</h2>
+        <!--div contenant le dernier film de la liste-->
+        <div id="lastFilm" style="border:solid 2px white; background-color:black; width:50%; margin-left:25%;">
+
+        </div>
+        <!--sous-titre-->
+        <h2>Récupération des titres de films sortie après 1950</h2>
+        <!--div contenant les titres des films sortie après 1950-->
+        <div id="titleList1950" style="border:solid 2px white; background-color:black; width:50%; margin-left:25%;">
+
+        </div>
+    </div>
+
     <script>
 
         //permet de changer la taille des images de déco du titre
@@ -253,7 +281,9 @@
                 }
             }
             //affichage du résultat
+            console.log("Liste des films sortie après 1900");
             console.log(tmpString);
+            document.getElementById("titleList1900").innerHTML = tmpString;
 
             //création d'un path pour vers les titres de films
             path = "lesfilms/film/titre";
@@ -279,7 +309,9 @@
                 tmpString += result.childNodes[0].nodeValue;
             }
             //affichage du résultat
+            console.log("Titre du premier film de la liste");
             console.log(tmpString);
+            document.getElementById("firstFilm").innerHTML = tmpString;
 
             //création d'un path pour vers la racine du document
             path = "lesfilms";
@@ -305,7 +337,9 @@
                 tmpString += result.lastElementChild.childNodes[1].textContent;
             }
             //affichage du résultat
+            console.log("Titre du dernier film de la liste");
             console.log(tmpString);
+            document.getElementById("lastFilm").innerHTML = tmpString;
 
             //création d'un path cherchant les titre de film sortie après 1950
             path = "lesfilms/film[date>1950]/titre";
@@ -339,9 +373,11 @@
                 }
             }
             //affichage du résultat
+            console.log("Liste des films sortie après 1950");
             console.log(tmpString);
+            document.getElementById("titleList1950").innerHTML = tmpString;
         }
-        
+
 
     </script>
 
