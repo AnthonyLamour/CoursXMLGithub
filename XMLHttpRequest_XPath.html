@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>test requète XPath</title>
+    <!--lien vers le CSS de la page-->
+    <link rel="stylesheet" href="StylePersonaXML.css" />
+    <!--icone de la page-->
+    <link rel="icon" href="Image/icon.gif">
+</head>
+
+<body onload="setJackSize();">
+    <!--image de décoration-->
+    <img src="Image/jackfrost2.png" id="JackFrost2">
+    <!--menu de navigation entre les pages-->
+    <nav>
+        <!--titre du menu de navigation-->
+        <h3>Menu de navigation :</h3>
+        <!--lien vers la page de sélection de réalisateur-->
+        <a href="SelectionReal">Selection réalisateur</a>
+        <!--lien vers la page d'index-->
+        <a href="index">HTTP request</a>
+    </nav>
+
+    <!--div de titre-->
+    <div id="DivTitre">
+        <!--image de décoration-->
+        <img src="Image/JackFrost.png" class="JackFrost" style="display: inline;">
+        <!--titre principal de la page-->
+        <h1 id="MainTitle" style="display:inline">Test de requète HTTP</h1>
+        <!--image de décoration-->
+        <img src="Image/JackFrost.png" class="JackFrost">
+    </div>
+
+    <!--sous-titre-->
+    <h2>Tableau de films</h2>
+    <!--div contenant un tableau avec les informations des films-->
+    <div id="test">
+
+    </div>
+
+    <script>
+
+        //permet de changer la taille des images de déco du titre
+        function setJackSize() {
+            //récupération des images
+            var mesJacks = document.getElementsByClassName("JackFrost");
+            //récupération de la hauteur du titre
+            var monTitreHeight = document.getElementById("MainTitle").offsetHeight;
+            //pour chaque image
+            for (var i = 0; i < mesJacks.length; i++) {
+                //modification de la hauteur maximale des images
+                mesJacks[i].style.maxHeight = monTitreHeight + "px";
+            }
+        }
+
+        //variable de type XMLHttpRequest
+        var xhttp = new XMLHttpRequest;
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                showResult(xhttp.responseXML);
+            }
+        };
+
+        //ouverture du fichier XML
+        xhttp.open("GET", "MesFilms.xml", true);
+        //envoi de la requète
+        xhttp.send();
+
+        function showResult(xml) {
+            //création d'un div servant de tableau
+            var tableau = document.createElement("div");
+            //création de divs servant de colonne pour le tableau
+            var col1 = document.createElement("div");
+            var col2 = document.createElement("div");
+            var col3 = document.createElement("div");
+            //ajout de l'attribut class pour les colonnes du tableau
+            col1.setAttribute("class", "divtab");
+            col2.setAttribute("class", "divtab");
+            col3.setAttribute("class", "divtab");
+
+            //création des variables qui serviront de lignes du tableau
+            var ligneCol1 = document.createElement('p');
+            ligneCol1.setAttribute("class", "case");
+            var ligneCol2 = document.createElement('p');
+            ligneCol2.setAttribute("class", "case");
+            var ligneCol3 = document.createElement('p');
+            ligneCol3.setAttribute("class", "case");
+
+            //initialisation des premières lignes du tableau
+            ligneCol1.innerHTML = "Film";
+            ligneCol2.innerHTML = "Réal";
+            ligneCol3.innerHTML = "Date";
+
+            //ajout des premières lignes dans les colonnes du tableau
+            col1.appendChild(ligneCol1);
+            col2.appendChild(ligneCol2);
+            col3.appendChild(ligneCol3);
+
+            var titleList = new Array;
+            var realList = new Array;
+            var dateList = new Array;
+
+            var path = "lesfilms/film/titre";
+
+            if (xml.evaluate) {
+                var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                var result = nodes.iterateNext();
+                while (result) {
+                    titleList.push(result.childNodes[0].nodeValue);
+                    result = nodes.iterateNext();
+                }
+            }
+            else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                xml.setProperty("SelectionLanguage", "XPath");
+                nodes = xml.selectNodes(path);
+                for (var i = 0; i < nodes.length; i++) {
+                    titleList.push(nodes[i].childNodes[0].nodeValue);
+                }
+            }
+
+            path = "lesfilms/film/realisateur";
+
+            if (xml.evaluate) {
+                var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                var result = nodes.iterateNext();
+                while (result) {
+                    realList.push(result.childNodes[0].nodeValue);
+                    result = nodes.iterateNext();
+                }
+            }
+            else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                xml.setProperty("SelectionLanguage", "XPath");
+                nodes = xml.selectNodes(path);
+                for (var i = 0; i < nodes.length; i++) {
+                    realList.push(nodes[i].childNodes[0].nodeValue);
+                }
+            }
+
+            path = "lesfilms/film/date";
+
+            if (xml.evaluate) {
+                var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+                var result = nodes.iterateNext();
+                while (result) {
+                    dateList.push(result.childNodes[0].nodeValue);
+                    result = nodes.iterateNext();
+                }
+            }
+            else if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+                xml.setProperty("SelectionLanguage", "XPath");
+                nodes = xml.selectNodes(path);
+                for (var i = 0; i < nodes.length; i++) {
+                    dateList.push(nodes[i].childNodes[0].nodeValue);
+                }
+            }
+            //pour chaque film
+            for (var cpt = 0; cpt < titleList.length; cpt++) {
+                //création des lignes du tableau
+                ligneCol1 = document.createElement('p');
+                ligneCol1.setAttribute("class", "case");
+                ligneCol2 = document.createElement('p');
+                ligneCol2.setAttribute("class", "case");
+                ligneCol3 = document.createElement('p');
+                ligneCol3.setAttribute("class", "case");
+                //ajout du texte des lignes
+                ligneCol1.innerHTML = titleList[cpt];
+                ligneCol2.innerHTML = realList[cpt];
+                ligneCol3.innerHTML = dateList[cpt];
+                //ajout des lignes dans les colonnes
+                col1.appendChild(ligneCol1);
+                col2.appendChild(ligneCol2);
+                col3.appendChild(ligneCol3);
+            }
+            //mise à jour du tableau
+            tableau.appendChild(col1);
+            tableau.appendChild(col2);
+            tableau.appendChild(col3);
+
+            //ajout du tableau dans la page
+            document.getElementById("test").appendChild(tableau);
+        }
+    </script>
+
+    <!--footer-->
+    <footer>
+        <!--paragraphe de footer-->
+        <p>Anthony LAMOUR étudiant en Master 2 à Ludus Académie</p>
+    </footer>
+</body>
+</html>
